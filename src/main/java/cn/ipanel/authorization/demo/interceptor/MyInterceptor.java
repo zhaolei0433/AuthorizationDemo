@@ -36,17 +36,18 @@ public class MyInterceptor implements HandlerInterceptor {
         logger.info("url == "+url);
         logger.info("token == "+httpServletRequest.getHeader(TOKEN_HEADER));
         try {
+            //
+            //
             logger.info("token header == "+extract(httpServletRequest.getHeader(TOKEN_HEADER)));
-            managerService.getLoginInfo(extract(httpServletRequest.getHeader(TOKEN_HEADER)), "pc");
+            //  managerService.getLoginInfo(extract(httpServletRequest.getHeader(TOKEN_HEADER)), "pc");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         httpServletResponse.sendRedirect("/error");
-//            httpServletResponse.getOutputStream().println("{\"data\":\"token is no available\"}");
+        //httpServletResponse.getOutputStream().println("{\"data\":\"token is no available\"}");
         return false;    //如果false，停止流程，api被拦截
     }
     //请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）
