@@ -10,9 +10,7 @@ import java.util.List;
 
 /**
  * @author zhaolei
- * Create: 2018/9/13 09:44
- * Modified By:
- * Description:
+ * createTime 2018年9月17日 下午4:16:44
  */
 public interface ManagerService {
     /**

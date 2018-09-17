@@ -3,14 +3,11 @@ package cn.ipanel.authorization.demo.service;
 import cn.ipanel.authorization.demo.dto.LoginInfo;
 import cn.ipanel.authorization.demo.dto.LoginWordAndToken;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created with Intellij IDEA.
- *
  * @author zhaolei
- * Create: 下午3:47 2018/1/24
- * Modified By:
- * Description:
+ * createTime 2018年9月17日 下午4:16:44
  */
 public interface MyRedisService {
 
@@ -57,6 +54,10 @@ public interface MyRedisService {
      */
     LoginWordAndToken getLoginWord(String word);
 
-
+    /**
+     * 获取所有的登录信息
+     * @return
+     */
+    Map<String, LoginInfo> getAllLoginInfo();
 
 }

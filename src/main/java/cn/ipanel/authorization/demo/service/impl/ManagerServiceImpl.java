@@ -16,6 +16,7 @@ import cn.ipanel.authorization.demo.jwt.exception.JWTInvalidTokenException;
 import cn.ipanel.authorization.demo.jwt.exception.JwtExpiredTokenException;
 import cn.ipanel.authorization.demo.service.ManagerService;
 import cn.ipanel.authorization.demo.service.MyRedisService;
+import cn.ipanel.authorization.demo.task.AsyncTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     private ManagerRepository managerRepository;
     private MyRedisService myRedisService;
-
+    private AsyncTask asyncTask;
     private Map<String, Integer> devices;
 
     {
@@ -48,9 +49,10 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Autowired
-    public ManagerServiceImpl(ManagerRepository managerRepository, MyRedisService myRedisService) {
+    public ManagerServiceImpl(ManagerRepository managerRepository, MyRedisService myRedisService, AsyncTask asyncTask) {
         this.managerRepository = managerRepository;
         this.myRedisService = myRedisService;
+        this.asyncTask = asyncTask;
     }
 
     @Override
@@ -91,6 +93,10 @@ public class ManagerServiceImpl implements ManagerService {
             if (loginInfo.getStatus() == 2) {
                 throw new Exception(SystemDefines.LOGIN_EXPIRED_MSG);
             }
+            // 管理员pc使用token，记录时间。
+            if (loginInfo.getDeviceType() == 1 && loginInfo.getUserType() == 1) {
+                asyncTask.updateManagerPcActiveTime(loginInfo.getWord());
+            }
             return new LoginInfoVO(loginInfo);
         } else {
             throw new JWTInvalidTokenException("invalid token(mismatching)");
@@ -121,6 +127,7 @@ public class ManagerServiceImpl implements ManagerService {
         String uuid = UUID.randomUUID().toString().replace("-", "");
         LoginInfo loginInfo = new LoginInfo(device, userType, word, loginTime, ip, SystemDefines.LOGIN_STATUS_OK);
         if (myRedisService.saveLoginInfo(uuid, loginInfo) && myRedisService.saveLoginWord(word, uuid)) {
+            asyncTask.cleanUserLoginOnDevice(word, device, loginTime);
             return new TokenAndUuidBean(JwtTokenUtil.generateToken(uuid, SystemDefines.JWT_SECRET, SystemDefines.JWT_EXPIRATION), uuid);
         }
         throw new MyException("登录失败");

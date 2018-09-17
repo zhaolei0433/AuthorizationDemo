@@ -49,4 +49,12 @@ public class LoginWordAndToken {
 
     public LoginWordAndToken() {
     }
+
+    @Override
+    public String toString() {
+        return "LoginWordAndToken{" +
+                "word='" + word + '\'' +
+                ", uuid=" + uuid +
+                '}';
+    }
 }

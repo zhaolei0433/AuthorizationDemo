@@ -88,8 +88,18 @@ public class MyRedisServiceImpl implements MyRedisService {
 
     @Override
     public LoginWordAndToken getLoginWord(String word) {
-        return null;
+        return redisTemplate.opsForHash().hasKey(SystemDefines.LOGIN_WORD_REDIS_KEY, word)
+                ? gson.fromJson(redisTemplate.opsForHash().get(SystemDefines.LOGIN_WORD_REDIS_KEY, word).toString(), LoginWordAndToken.class)
+                : null;
     }
 
+    @Override
+    public Map<String, LoginInfo> getAllLoginInfo() {
+        Map<String, LoginInfo> result = new HashMap<>(100);
+        redisTemplate.opsForHash().entries(SystemDefines.LOGIN_INFO_REDIS_KEY).forEach((key, value) -> {
+            result.put(key.toString(), gson.fromJson(value.toString(), LoginInfo.class));
+        });
+        return result;
+    }
 
 }
