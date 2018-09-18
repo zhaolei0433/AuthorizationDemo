@@ -40,17 +40,13 @@ public class ScheduleTask {
         pcManagerActiveTime.forEach((username, activeTime) ->{
             if (Instant.now().toEpochMilli() - activeTime > SystemDefines.MANAGER_LOGIN_ACTIVE_TIME_OUT * 1000) {
                 LoginWordAndToken token = myRedisService.getLoginWord(username);
-                logger.info("!!!!!!!!!!!first token"+token);
                 token.getUuid().forEach(uuid -> {
                     LoginInfo info = myRedisService.getLoginInfo(uuid);
-                    logger.info("!!!!!!!!!!!first token"+info);
                     if (null != info && info.getDeviceType().equals(SystemDefines.DEVICE_PC)) {
                         logger.info("设置为 expired {}, {}", username, uuid);
                         info.setStatus(SystemDefines.LOGIN_STATUS_EXPIRED);
                         info.setLoseTime(Instant.now().toEpochMilli());
                         myRedisService.saveLoginInfo(uuid, info);
-
-                       // queueTask.manageManagerQueue(SystemDefines.DEVICE_PC, info.getWord(), QueueTask.deleteQueue, info.getWord() + "." + info.getLoginTime());
                     }
                 });
             }

@@ -45,11 +45,9 @@ public class AsyncTask {
     @Async("myAsync")
     public void cleanUserLoginOnDevice(String word, Integer device, Long loginTime) {
         LoginWordAndToken token = redisService.getLoginWord(word);
-        logger.info("!!!!!!!!!!!first token:"+token);
         List<String> tokens = new ArrayList<>();
         token.getUuid().forEach(uuid -> {
             LoginInfo info = redisService.getLoginInfo(uuid);
-            logger.info("!!!!!!!!!!!first info:"+info);
             if (null != info && info.getDeviceType().equals(device) && loginTime > info.getLoginTime()) {
                 if (Instant.now().toEpochMilli() - info.getLoginTime() >= SystemDefines.JWT_EXPIRATION * 1000) {
                     logger.info("login info expired {} (jwt)", info.getWord());
@@ -60,16 +58,11 @@ public class AsyncTask {
                     logger.info("login kickout {}, last login {}", info.getWord(), LocalDateTime.ofInstant(Instant.ofEpochMilli(info.getLoginTime()), ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                     redisService.saveLoginInfo(uuid, info);
                 }
-                if (info.getUserType() == SystemDefines.USER_TYPE_MANAGER) {
-                    //管理员消息队列
-                  //queueTask.manageManagerQueue(info.getDeviceType(), info.getWord(), QueueTask.deleteQueue, info.getWord() + "." + info.getLoginTime());
-                }
             } else if (null != info) {
                 tokens.add(uuid);
             }
         });
         token.setUuid(tokens);
-        logger.info("!!!!!!!!!!!last token"+token);
         redisService.saveLoginWord(word, tokens);
     }
     /**
@@ -80,7 +73,6 @@ public class AsyncTask {
     public void updateManagerPcActiveTime(String username) {
         try {
             pcManagerActiveTime.put(username, Instant.now().toEpochMilli());
-            logger.info("！！！！！！！更新活动时间"+Instant.now().toEpochMilli());
         } catch (Exception e) {
             logger.error("updateManagerPcActiveTime: {}", e.getMessage(), e);
         }

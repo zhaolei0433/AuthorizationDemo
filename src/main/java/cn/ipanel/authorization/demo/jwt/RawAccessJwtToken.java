@@ -17,7 +17,6 @@ public class RawAccessJwtToken implements JwtToken {
         this.token = token;
         this.secret = secret;
     }
-
     /**
      * Title: getTokenValue
      * Description: 获取token的值

@@ -59,5 +59,4 @@ public interface MyRedisService {
      * @return
      */
     Map<String, LoginInfo> getAllLoginInfo();
-
 }
