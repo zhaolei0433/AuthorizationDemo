@@ -36,9 +36,8 @@ public class AsyncTask {
 
     @Resource
     private ConcurrentHashMap<String, Long> pcManagerActiveTime;
-
     /**
-     * 同一账号如果有新的登录操作，删除之前的登录信息。
+     * 单点登录，同一账号如果有新的登录操作，删除之前的登录信息。
      * @param word 管理员用户名或者普通用户手机号
      * @param device 设备类型
      * @param loginTime 登录时间
@@ -73,7 +72,6 @@ public class AsyncTask {
         logger.info("!!!!!!!!!!!last token"+token);
         redisService.saveLoginWord(word, tokens);
     }
-
     /**
      * 更新活动时间
      * @param username
@@ -82,6 +80,7 @@ public class AsyncTask {
     public void updateManagerPcActiveTime(String username) {
         try {
             pcManagerActiveTime.put(username, Instant.now().toEpochMilli());
+            logger.info("！！！！！！！更新活动时间"+Instant.now().toEpochMilli());
         } catch (Exception e) {
             logger.error("updateManagerPcActiveTime: {}", e.getMessage(), e);
         }

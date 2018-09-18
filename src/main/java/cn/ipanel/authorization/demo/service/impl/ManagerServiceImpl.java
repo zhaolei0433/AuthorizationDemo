@@ -61,7 +61,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public ManagerVO login(ManagerLoginReq managerLoginReq) throws Exception {
+    public ManagerVO pcLogin(ManagerLoginReq managerLoginReq) throws Exception {
         //基本登录,数据库信息验证
         ManagerInfo managerInfo =  managerRepository.findUserInfoByUserNameAndPassword(managerLoginReq.getUsername(), managerLoginReq.getPassword());
         logger.info("managerInfo : "+ managerInfo);
@@ -72,6 +72,7 @@ public class ManagerServiceImpl implements ManagerService {
         managerRepository.save(managerInfo);
         //获取token
         String token = getToken(managerInfo, DEVICE_PC,managerLoginReq.getIp());
+        asyncTask.updateManagerPcActiveTime(managerInfo.getUserName());
         return new ManagerVO(managerInfo, token);
     }
 

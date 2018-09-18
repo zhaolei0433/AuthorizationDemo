@@ -5,8 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author luzh
- * createTime 2017年9月28日 上午10:46:29
+ * @author zhaolei
+ * createTime 2018年9月17日 下午4:16:44
  */
 @Data
 public class ManagerVO {

@@ -5,22 +5,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * Created with Intellij IDEA.
- *
- * @author luzh
- * Create: 下午3:12 2018/1/24
- * Modified By:
- * Description:
+ * @author zhaolei
+ * createTime 2018年9月17日 下午4:16:44
  */
 @Data
 public class LoginInfoVO {
-    @ApiModelProperty(value = "登录用户类型1管理员2普通用户")
     private Integer userType;
-    @ApiModelProperty(value = "登录口令")
     private String word;
-    @ApiModelProperty(value = "登录时间")
     private Long loginTime;
-    @ApiModelProperty(value = "登录ip")
     private String ip;
 
     public LoginInfoVO(LoginInfo info) {

@@ -5,12 +5,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * Created with Intellij IDEA.
- *
- * @author luzh
- * Create: 下午3:29 2018/1/24
- * Modified By:
- * Description:
+ * @author zhaolei
+ * createTime 2018年9月17日 下午4:16:44
  */
 @Data
 public class LoginInfo implements Serializable{

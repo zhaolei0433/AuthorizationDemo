@@ -1,12 +1,8 @@
 package cn.ipanel.authorization.demo.dto;
 
 /**
- * Created with Intellij IDEA.
- *
- * @author luzh
- * Create: 下午6:56 2018/1/29
- * Modified By:
- * Description:
+ * @author zhaolei
+ * createTime 2018年9月17日 下午4:16:44
  */
 public class LoginWordTokenQueue {
     private String word;

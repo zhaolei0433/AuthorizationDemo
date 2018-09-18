@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
+/**
+ * @author zhaolei
+ * createTime 2018年9月17日 下午4:16:44
+ */
 @Api(tags = "管理员模块")
 @RequestMapping(value = "/managerInfo")
 @RestController
@@ -45,7 +48,7 @@ public class ManagerController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result<ManagerVO> userLoginP(@RequestBody ManagerLoginReq req, HttpServletRequest httpServletRequest) throws Exception {
         req.setIp(httpServletRequest.getRemoteHost());
-        return new Result<>(managerService.login(req));
+        return new Result<>(managerService.pcLogin(req));
     }
 
 }

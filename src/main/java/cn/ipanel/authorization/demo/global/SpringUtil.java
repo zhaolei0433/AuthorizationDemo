@@ -1,14 +1,13 @@
-package cn.ipanel.authorization.demo;
+package cn.ipanel.authorization.demo.global;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-/** 
- * @remark
- * @author luzh 
- * @createTime 2017年4月28日 下午1:52:37
+/**
+ * @author zhaolei
+ * createTime 2018年9月17日 下午4:16:44
  */
 @Component
 public class SpringUtil implements ApplicationContextAware {

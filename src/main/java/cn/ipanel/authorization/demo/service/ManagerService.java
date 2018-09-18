@@ -24,7 +24,7 @@ public interface ManagerService {
      * @param managerLoginReq
      * @return
      */
-    ManagerVO login(ManagerLoginReq managerLoginReq) throws Exception;
+    ManagerVO pcLogin(ManagerLoginReq managerLoginReq) throws Exception;
     /**
      * 用户url拦截，获取用户登录信息
      * @param token

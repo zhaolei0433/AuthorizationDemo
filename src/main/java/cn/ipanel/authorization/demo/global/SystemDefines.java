@@ -1,8 +1,8 @@
 package cn.ipanel.authorization.demo.global;
 
 /**
- * @author luzh
- * createTime 2017年9月14日 下午7:04:17
+ * @author zhaolei
+ * createTime 2018年9月17日 下午4:16:44
  */
 public class SystemDefines {
     /**
@@ -15,7 +15,7 @@ public class SystemDefines {
     /**
      * 管理员登录状态超时时间
      */
-    public static final int MANAGER_LOGIN_ACTIVE_TIME_OUT = 30 * 60;
+    public static final int MANAGER_LOGIN_ACTIVE_TIME_OUT = 10 * 60;
     /**
      * jwt token信息
      */

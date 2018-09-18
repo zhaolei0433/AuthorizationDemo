@@ -1,14 +1,12 @@
 package cn.ipanel.authorization.demo.interceptor;
 
-import cn.ipanel.authorization.demo.SpringUtil;
+import cn.ipanel.authorization.demo.global.SpringUtil;
 import cn.ipanel.authorization.demo.global.Globals;
 import cn.ipanel.authorization.demo.global.MyException;
 import cn.ipanel.authorization.demo.global.SystemDefines;
 import cn.ipanel.authorization.demo.service.ManagerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,18 +28,9 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        try {
-            logger.info("token header == "+extract(httpServletRequest.getHeader(TOKEN_HEADER)));
-            managerService.getLoginInfo(extract(httpServletRequest.getHeader(TOKEN_HEADER)), "pc");
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        httpServletResponse.setContentType("application/json");
-        httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-        httpServletResponse.sendRedirect("/error");
-        //httpServletResponse.getOutputStream().println("{\"data\":\"token is no available\"}");
-        return false;
+        logger.info("token header == "+extract(httpServletRequest.getHeader(TOKEN_HEADER)));
+        managerService.getLoginInfo(extract(httpServletRequest.getHeader(TOKEN_HEADER)), "pc");
+        return true;
     }
 
     @Override

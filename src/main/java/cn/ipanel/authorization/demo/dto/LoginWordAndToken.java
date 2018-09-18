@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with Intellij IDEA.
- *
- * @author luzh
- * Create: 下午7:40 2018/1/25
- * Modified By:
- * Description:
+ * @author zhaolei
+ * createTime 2018年9月17日 下午4:16:44
  */
 public class LoginWordAndToken {
     private String word;
