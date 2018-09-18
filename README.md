@@ -5,7 +5,6 @@
 1. 使用Springboot自带拦截器对请求进行拦截处理，这里使用springboot自带拦截器主要是较为轻型，同样也可以选择springsecurity。
 2. 使用jwt作为创建验证token工具，并选择一种验证方式与算法。
 3. 使用redis做缓存处理，缓存token等等登录信息，以实现单点登录与超时登录功能。
-![image](http://note.youdao.com/noteshare?id=5877197d8df2ec59923f34176d823dea&sub=A06A1F107D844566921F0C13007D2DDC)
 4. 使用springboot定时器配合redis实现超时登录，清除登录信息等功能。
 5. 加rabbit消息队列控制单点与延时登录实现更为安全的登录状态控制（实现中）
 ---
