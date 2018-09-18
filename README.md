@@ -1,5 +1,4 @@
-# AuthorizationDemo  授权验证
-## 使用 Springboot+redis+jwt 实现授权验证基本功能框架
+## Springboot+redis+jwt 实现授权验证基本功能框架
 ---
 ### 框架的功能与意义
 1. 使用Springboot自带拦截器对请求进行拦截处理，这里使用springboot自带拦截器主要是较为轻型，同样也可以选择springsecurity。
