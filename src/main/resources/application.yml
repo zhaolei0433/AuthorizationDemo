@@ -34,3 +34,5 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
   profiles:
     active: dev
+test:
+  username: zhaolei

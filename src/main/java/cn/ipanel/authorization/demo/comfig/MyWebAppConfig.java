@@ -1,4 +1,4 @@
-package cn.ipanel.authorization.demo;
+package cn.ipanel.authorization.demo.comfig;
 
 import cn.ipanel.authorization.demo.interceptor.MyInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +18,7 @@ public class MyWebAppConfig extends WebMvcConfigurationSupport {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localInterceptor())
                 .addPathPatterns("/managerInfo/*")
+                //.excludePathPatterns("/*/*")
                 .excludePathPatterns("/managerInfo/login")//登录接口放行
                 .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");//swagger页面放行
     }

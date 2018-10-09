@@ -28,6 +28,13 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+       //解决跨域
+        String origin = httpServletRequest.getHeader("Origin");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", origin);
+        httpServletResponse.setHeader("Access-Control-Allow-Methods", "*");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers","Origin,Content-Type,Accept,token,X-Requested-With");
+        httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
+        //token验证
         logger.info("token header == "+extract(httpServletRequest.getHeader(TOKEN_HEADER)));
         managerService.getLoginInfo(extract(httpServletRequest.getHeader(TOKEN_HEADER)), "pc");
         return true;
