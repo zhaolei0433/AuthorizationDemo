@@ -17,6 +17,7 @@ import cn.ipanel.authorization.demo.jwt.exception.JwtExpiredTokenException;
 import cn.ipanel.authorization.demo.service.ManagerService;
 import cn.ipanel.authorization.demo.service.MyRedisService;
 import cn.ipanel.authorization.demo.task.AsyncTask;
+import cn.ipanel.authorization.demo.task.QueuesTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class ManagerServiceImpl implements ManagerService {
     private ManagerRepository managerRepository;
     private MyRedisService myRedisService;
     private AsyncTask asyncTask;
+    private QueuesTask queuesTask;
     private Map<String, Integer> devices;
 
     {
@@ -49,10 +51,11 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Autowired
-    public ManagerServiceImpl(ManagerRepository managerRepository, MyRedisService myRedisService, AsyncTask asyncTask) {
+    public ManagerServiceImpl(ManagerRepository managerRepository, MyRedisService myRedisService, AsyncTask asyncTask, QueuesTask queuesTask) {
         this.managerRepository = managerRepository;
         this.myRedisService = myRedisService;
         this.asyncTask = asyncTask;
+        this.queuesTask = queuesTask;
     }
 
     @Override
@@ -73,6 +76,8 @@ public class ManagerServiceImpl implements ManagerService {
         //获取token
         String token = getToken(managerInfo, DEVICE_PC,managerLoginReq.getIp());
         asyncTask.updateManagerPcActiveTime(managerInfo.getUserName());
+        //创建管理员队列
+        queuesTask.createQueue();
         return new ManagerVO(managerInfo, token);
     }
 

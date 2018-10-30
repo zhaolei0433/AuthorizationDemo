@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 9001
   error:
     path: /app/error
 spring:
