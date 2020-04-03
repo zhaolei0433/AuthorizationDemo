@@ -36,10 +36,12 @@ public class AsyncTask {
 
     @Resource
     private ConcurrentHashMap<String, Long> pcManagerActiveTime;
+
     /**
      * 单点登录，同一账号如果有新的登录操作，删除之前的登录信息。
-     * @param word 管理员用户名或者普通用户手机号
-     * @param device 设备类型
+     *
+     * @param word      管理员用户名或者普通用户手机号
+     * @param device    设备类型
      * @param loginTime 登录时间
      */
     @Async("myAsync")
@@ -65,8 +67,10 @@ public class AsyncTask {
         token.setUuid(tokens);
         redisService.saveLoginWord(word, tokens);
     }
+
     /**
      * 更新活动时间
+     *
      * @param username
      */
     @Async("myAsync")

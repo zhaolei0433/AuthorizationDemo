@@ -1,5 +1,7 @@
 package cn.ipanel.authorization.demo.global;
 
+import io.swagger.models.auth.In;
+
 /**
  * @author zhaolei
  * createTime 2018年9月17日 下午4:16:44
@@ -61,4 +63,11 @@ public class SystemDefines {
     public static final Integer USER_TYPE_MANAGER = 1;
     //基本用户
     public static final Integer USER_TYPE_USER = 2;
+    /**
+     * rabbit消息
+     */
+    //消息存活时间
+    public static final Integer ALARM_CALL_DEFAULT_TTL = 10;
+    //队列未访问，销毁时间
+    public static final Integer ALARM_CALL_QUEUE_DEFAULT_EXPIRES = 30 * 60;
 }

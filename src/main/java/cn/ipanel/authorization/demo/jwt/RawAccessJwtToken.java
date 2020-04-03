@@ -4,6 +4,7 @@ import cn.ipanel.authorization.demo.global.SystemDefines;
 import cn.ipanel.authorization.demo.jwt.exception.JWTInvalidTokenException;
 import cn.ipanel.authorization.demo.jwt.exception.JwtExpiredTokenException;
 import io.jsonwebtoken.*;
+
 /**
  * @author zhaolei
  * createTime 2018年9月13日 下午3:54:59
@@ -17,9 +18,11 @@ public class RawAccessJwtToken implements JwtToken {
         this.token = token;
         this.secret = secret;
     }
+
     /**
      * Title: getTokenValue
      * Description: 获取token的值
+     *
      * @author zhaolei
      * createTime 2017年9月29日 下午2:55:18
      */
@@ -40,6 +43,7 @@ public class RawAccessJwtToken implements JwtToken {
 
     /**
      * 刷新token
+     *
      * @param expiration 过期时间
      * @return jwt
      * @throws Exception e

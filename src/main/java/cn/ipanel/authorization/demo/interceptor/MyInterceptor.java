@@ -28,27 +28,28 @@ public class MyInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-       //解决跨域
+        //解决跨域
         String origin = httpServletRequest.getHeader("Origin");
         httpServletResponse.setHeader("Access-Control-Allow-Origin", origin);
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "*");
-        httpServletResponse.setHeader("Access-Control-Allow-Headers","Origin,Content-Type,Accept,token,X-Requested-With");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "Origin,Content-Type,Accept,token,X-Requested-With");
         httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
         //token验证
-        logger.info("token header == "+extract(httpServletRequest.getHeader(TOKEN_HEADER)));
+        logger.info("token header == " + extract(httpServletRequest.getHeader(TOKEN_HEADER)));
         managerService.getLoginInfo(extract(httpServletRequest.getHeader(TOKEN_HEADER)), "pc");
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-      // System.out.println("postHandle被调用");
+        // System.out.println("postHandle被调用");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-       // System.out.println("afterCompletion被调用");
+        // System.out.println("afterCompletion被调用");
     }
+
     private static String extract(String header) throws Exception {
         if (Globals.isEmpty(header) || Globals.isBlank(header)) {
             throw new MyException("Authorization header cannot be blank");

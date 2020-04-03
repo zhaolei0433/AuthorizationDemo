@@ -2,6 +2,7 @@ package cn.ipanel.authorization.demo.service;
 
 import cn.ipanel.authorization.demo.dto.LoginInfo;
 import cn.ipanel.authorization.demo.dto.LoginWordAndToken;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,8 @@ public interface MyRedisService {
 
     /**
      * 保存登录信息
-     * @param name uuid
+     *
+     * @param name      uuid
      * @param loginInfo 登录信息
      * @return boolean
      */
@@ -21,6 +23,7 @@ public interface MyRedisService {
 
     /**
      * 通过uuid获取登录信息
+     *
      * @param name uuid
      * @return info
      */
@@ -28,12 +31,14 @@ public interface MyRedisService {
 
     /**
      * 删除登录信息
+     *
      * @param name
      */
     void removeLoginInfo(String name);
 
     /**
      * 保存用户对应登陆信息
+     *
      * @param word word
      * @param uuid uuid
      * @return boolean
@@ -42,6 +47,7 @@ public interface MyRedisService {
 
     /**
      * 保存用户对应登陆信息
+     *
      * @param word word
      * @param uuid uuid
      */
@@ -49,6 +55,7 @@ public interface MyRedisService {
 
     /**
      * 查找用户对应登录信息
+     *
      * @param word word
      * @return info
      */
@@ -56,6 +63,7 @@ public interface MyRedisService {
 
     /**
      * 获取所有的登录信息
+     *
      * @return
      */
     Map<String, LoginInfo> getAllLoginInfo();

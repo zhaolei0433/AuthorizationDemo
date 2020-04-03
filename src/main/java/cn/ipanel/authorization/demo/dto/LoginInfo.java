@@ -9,7 +9,7 @@ import java.io.Serializable;
  * createTime 2018年9月17日 下午4:16:44
  */
 @Data
-public class LoginInfo implements Serializable{
+public class LoginInfo implements Serializable {
     private static final long serialVersionUID = -8399145456817349715L;
     private Integer deviceType;
     private Integer userType;

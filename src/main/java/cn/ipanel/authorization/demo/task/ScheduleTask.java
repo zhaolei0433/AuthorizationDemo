@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 public class ScheduleTask {
-    
+
     private static Logger logger = LoggerFactory.getLogger(ScheduleTask.class);
 
     @Resource
@@ -30,14 +30,14 @@ public class ScheduleTask {
     @Resource
     private ConcurrentHashMap<String, Long> pcManagerActiveTime;
 
-    
+
     /**
      * 每5分钟检测一次管理员pc端登录情况
      */
     @Scheduled(cron = "0 */5 * * * *")
     public void checkManagerActiveStatus() {
         logger.info("定时检测pc端管理员登录 {} ", LocalDateTime.now().toString());
-        pcManagerActiveTime.forEach((username, activeTime) ->{
+        pcManagerActiveTime.forEach((username, activeTime) -> {
             if (Instant.now().toEpochMilli() - activeTime > SystemDefines.MANAGER_LOGIN_ACTIVE_TIME_OUT * 1000) {
                 LoginWordAndToken token = myRedisService.getLoginWord(username);
                 token.getUuid().forEach(uuid -> {

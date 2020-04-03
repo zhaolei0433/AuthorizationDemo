@@ -12,15 +12,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @EnableScheduling
 @ServletComponentScan
 @SpringBootApplication
-public class   DemoApplication {
+public class DemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
 
-	@Bean
-	public ConcurrentHashMap<String, Long> pcManagerActiveTime() {
-		return new ConcurrentHashMap<>(100);
-	}
+    @Bean
+    public ConcurrentHashMap<String, Long> pcManagerActiveTime() {
+        return new ConcurrentHashMap<>(100);
+    }
 
 }

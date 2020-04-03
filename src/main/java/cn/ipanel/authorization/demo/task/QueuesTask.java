@@ -1,9 +1,12 @@
 package cn.ipanel.authorization.demo.task;
 
+import cn.ipanel.authorization.demo.service.QueueProduceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @author zhaolei
@@ -14,9 +17,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class QueuesTask {
     private static Logger logger = LoggerFactory.getLogger(QueuesTask.class);
+    @Resource
+    private QueueProduceService queueProduceService;
 
     @Async("myAsync")
-    public void createQueue(){
-
+    public void createQueueByManageLogin(String queueName) {
+        queueProduceService.declareAndBindingQueue(queueName);
     }
 }

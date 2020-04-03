@@ -8,7 +8,7 @@ import cn.ipanel.authorization.demo.jwt.JwtToken;
  */
 public class JwtExpiredTokenException extends Exception {
     private static final long serialVersionUID = -5959543783324224864L;
-    
+
     private JwtToken token;
 
     public JwtExpiredTokenException(String msg) {

@@ -23,8 +23,8 @@ public class Globals {
         return true;
     }
 
-    public static Throwable getOriginException(Throwable e){
-        while(e.getCause() != null){
+    public static Throwable getOriginException(Throwable e) {
+        while (e.getCause() != null) {
             e = e.getCause();
         }
         return e;

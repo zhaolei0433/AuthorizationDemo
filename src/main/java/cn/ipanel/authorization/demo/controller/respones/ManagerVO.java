@@ -15,6 +15,7 @@ public class ManagerVO {
     private String password;
     private Long loginTime;
     private String token;
+
     public ManagerVO() {
     }
 

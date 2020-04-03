@@ -59,25 +59,25 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<ManagerInfo> queryUserInfo(String userName){
+    public List<ManagerInfo> queryUserInfo(String userName) {
         return managerRepository.findAllByUserName(userName);
     }
 
     @Override
     public ManagerVO pcLogin(ManagerLoginReq managerLoginReq) throws Exception {
         //基本登录,数据库信息验证
-        ManagerInfo managerInfo =  managerRepository.findUserInfoByUserNameAndPassword(managerLoginReq.getUsername(), managerLoginReq.getPassword());
-        logger.info("managerInfo : "+ managerInfo);
+        ManagerInfo managerInfo = managerRepository.findUserInfoByUserNameAndPassword(managerLoginReq.getUsername(), managerLoginReq.getPassword());
+        logger.info("managerInfo : " + managerInfo);
         if (managerInfo == null)
-            throw  new RequestParamErrorException("用户名或密码错误");
+            throw new RequestParamErrorException("用户名或密码错误");
         //更新登录时间
         managerInfo.setLoginTime(Instant.now().toEpochMilli());
         managerRepository.save(managerInfo);
         //获取token
-        String token = getToken(managerInfo, DEVICE_PC,managerLoginReq.getIp());
+        String token = getToken(managerInfo, DEVICE_PC, managerLoginReq.getIp());
         asyncTask.updateManagerPcActiveTime(managerInfo.getUserName());
         //创建管理员队列
-        queuesTask.createQueue();
+        queuesTask.createQueueByManageLogin(managerInfo.getUserName());
         return new ManagerVO(managerInfo, token);
     }
 
@@ -88,7 +88,7 @@ public class ManagerServiceImpl implements ManagerService {
         if (null == loginInfo) {
             throw new JwtExpiredTokenException("token expired(not existing)");
         }
-        logger.info("loginInfo =="+loginInfo);
+        logger.info("loginInfo ==" + loginInfo);
         if (devices.containsKey(device) && loginInfo.getDeviceType().equals(devices.get(device))) {
             if (null == loginInfo.getStatus()) {
                 return new LoginInfoVO(loginInfo);
@@ -111,21 +111,24 @@ public class ManagerServiceImpl implements ManagerService {
 
     /**
      * 获取token
+     *
      * @param managerInfo 管理员信息
-     * @param device 登陆设备
-     * @param Ip Ip地址
+     * @param device      登陆设备
+     * @param Ip          Ip地址
      */
-    private String getToken(ManagerInfo managerInfo, Integer device,String Ip) throws Exception {
+    private String getToken(ManagerInfo managerInfo, Integer device, String Ip) throws Exception {
         TokenAndUuidBean bean = createToken(device, SystemDefines.USER_TYPE_MANAGER, managerInfo.getUserName(), managerInfo.getLoginTime(), Ip);
-       return bean.getToken();
+        return bean.getToken();
     }
+
     /**
-     *创建并缓存 token
-     * @param device 登陆设备
-     * @param userType 用户类型
-     * @param word 用户名
+     * 创建并缓存 token
+     *
+     * @param device    登陆设备
+     * @param userType  用户类型
+     * @param word      用户名
      * @param loginTime 登录时间
-     * @param ip ip 地址
+     * @param ip        ip 地址
      * @return
      * @throws Exception
      */
